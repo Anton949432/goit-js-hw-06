@@ -16,27 +16,23 @@ const images = [
 const gallery = document.querySelector(".gallery");
 
 const createGalleryItem = (image) => {
-  const li = document.createElement("li");
-  li.classList.add("gallery-item");
-
-  const img = document.createElement("img");
-  img.src = image.url;
-  img.alt = image.alt;
-  img.classList.add("gallery-image");
-
-  li.appendChild(img);
-  return li;
+  return `
+    <li class="gallery-item">
+      <img src="${image.url}" alt="${image.alt}" class="gallery-image">
+    </li>
+  `;
 };
 
 const addRotationAnimation = (element) => {
   element.classList.add("rotate");
 };
 
-const galleryItems = images.map(createGalleryItem);
+const galleryItemsHTML = images.map(createGalleryItem).join("");
+gallery.insertAdjacentHTML("beforeend", galleryItemsHTML);
+
+const galleryItems = document.querySelectorAll(".gallery-item");
 
 galleryItems.forEach((item) => {
-  gallery.appendChild(item);
-
   item.addEventListener("click", () => {
     addRotationAnimation(item);
   });
